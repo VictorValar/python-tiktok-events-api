@@ -1,30 +1,4 @@
-'''
-Python wrapper for the TikTok Events API
-https://ads.tiktok.com/marketing_api/docs?id=1705001902887214
-Author: @ValarVictor
-'''
-
-from pydantic import BaseModel
 from enum import Enum
-
-# TikTok events
-class Event(BaseModel):
-    event: str
-    event_id: str
-    timestamp: str
-    context: dict
-    properties: dict
-
-
-event = Event(
-    event='Purchase',
-    event_id='123456789',
-    timestamp='2020-01-01T00:00:00Z',
-    context={},
-    properties={}
-)
-
-print(event)
 
 # Supported web events
 # https://ads.tiktok.com/marketing_api/docs?id=1741601162187777
@@ -86,5 +60,3 @@ class SupportedEvents(Enum):
     When a subscription is made.
     """
     Subscribe = 'Subscribe'
-
-
