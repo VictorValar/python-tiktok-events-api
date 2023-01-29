@@ -9,7 +9,7 @@ from typing import Optional, List, Dict, Any
 from pytt_events.supported_events import SupportedEvents
 from pytt_events.auth import Auth
 from pytt_events.context import Context
-
+from pytt_events.properties import Properties
 
 # TikTok events
 class Event(BaseModel):
@@ -18,6 +18,6 @@ class Event(BaseModel):
     event_id: Optional[str]
     timestamp: Optional[str] # ISO 8601 format
     context: Context
-    properties: Optional[dict]
+    properties: Optional[Properties]
 
 

@@ -13,11 +13,19 @@ def test_valid_event():
     event_id = '1234'
     timestamp = datetime.now().isoformat(timespec='seconds', sep='T'); print(timestamp)
     context = Context(
-        user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
+        user_agent='',
         ip='999.999.999.999',
-        ad={"ttclid": "12345"},
-        page=Page(url='https://www.example.com', referrer='https://www.google.com')
-    )
+        ad=Ad(callback='s.s.2.2sssss' ), # ttclid
+        page=Page(
+            url='https://www.example.com',
+            referrer='https://www.google.com'
+        ),
+        user=User(
+            external_id='123456',
+            email='test@test.com',
+            phone_number='+5541998862934',
+            ttp='test_ttp',
+        ))
     properties = Properties(
         currency='USD',
         value=1.00,
