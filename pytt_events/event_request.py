@@ -17,8 +17,17 @@ class EventWrapper(object):
 
         try:
             response = requests.post(url, data=payload, headers=headers)
+            json_response = response.json()
+
+            # TikTok API uses custom error codes:
+            # https://ads.tiktok.com/marketing_api/docs?id=1737172488964097
+            if json_response['code'] != 0:
+                raise HTTPError(json_response['code'], json_response['message'])
+            else :
+                logging.info('TikTok Event Response: ' + str(json_response))
+
             return response
 
-        except HTTPError as exeption:
+        except Exception as exeption:
             logging.error(exeption)
             raise exeption

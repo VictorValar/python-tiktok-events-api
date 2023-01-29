@@ -32,7 +32,7 @@ def test_post_event():
         description='test description',
         query='test query',
         status='test status',
-        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": "product", "content_name": "test content name"}]
+        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": "product", "content_name": "test content name", "content_category": "test content category"}]
 
     )
     event = Event(
@@ -51,11 +51,11 @@ def test_post_event():
         event=event,
         auth=auth
     )
-    print('Code:',event_response.json()['code'])
-    print('request_id:',event_response.json()['request_id'])
-    print('message:',event_response.json()['message'])
-    print(event_response.status_code, event_response.reason)
-    assert event_response.status_code == 200
+    # print('Code:',event_response.json()['code'])
+    # print('request_id:',event_response.json()['request_id'])
+    # print('message:',event_response.json()['message'])
+    # print(event_response.status_code, event_response.reason)
 
+    json_response= event_response.json()
+    assert json_response['code'] == 0
 
-{'code': 40002, 'message': 'Invalid value for properties.contents.0.content_name: value may not be null.', 'request_id': '20230129212111109E578C3CF31D90CAB2'}

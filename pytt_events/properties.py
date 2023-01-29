@@ -24,7 +24,7 @@ class Content(BaseModel):
     quantity: PositiveInt
     price: PositiveFloat
     content_type: ContentType
-    content_category: Optional[constr(min_length=1)]
+    content_category: constr(min_length=1)
     content_name: constr(min_length=1)
 
 class Properties(BaseModel):
