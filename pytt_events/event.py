@@ -14,9 +14,10 @@ import datetime
 
 # TikTok event
 class Event(BaseModel):
-    pixel_code: constr(strip_whitespace=True, min_length=1, max_length=64)
+    pixel_code: constr(strip_whitespace=True, min_length=1)
+    test_event_code: Optional[constr(strip_whitespace=True)]
     event: SupportedEvents
-    event_id: Optional[str]
+    event_id: Optional[constr(strip_whitespace=True, min_length=1)]
     timestamp: datetime.datetime # ISO 8601 format
     context: Context
     properties: Optional[Properties]

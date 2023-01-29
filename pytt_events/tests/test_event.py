@@ -5,18 +5,19 @@ from pytt_events.auth import Auth
 from pytt_events.event import Event
 from pytt_events.properties import Properties
 from pytt_events.context import Context, Ad, Page, User
+from pydantic import ValidationError
+from ..context import ContextFormatError
 
 def test_valid_event():
     auth = Auth()
-    pixel_code = auth.tik_tok_pixel_id
+    pixel_code = auth.tiktok_pixel_id
     event_name = "ViewContent"
     event_id = '1234'
     timestamp = "2023-01-29 13:37:26-03:00"
-    # print(f'Event time: {timestamp}')
     context = Context(
         user_agent='Chrome/87.0.4280.88 Safari/537.36 OPR/73.0.3856.344 (Edition Yx GX)',
         ip='186.212.33.108',
-        ad=Ad(callback='x.x.x.xxxxxxxxxxxx' ), # ttclid
+        ad=Ad(callback='E.C.P.v3fQ2RHacdksKfofPmlyuStIIHJ4Af1tKYxF9zz2c2PLx1Oaw15oHpcfl5AH' ), # ttclid
         page=Page(
             url='https://www.example.com',
             referrer='https://www.google.com'
@@ -28,7 +29,7 @@ def test_valid_event():
             ttp='94e2a4j9-h3j5-k2h5-98cc-c84a745mk098',
         ))
     properties = Properties(
-        currency='USD',
+        currency='USD', # ISO 4217
         value=1.00,
         description='test description',
         query='test query',
@@ -41,11 +42,13 @@ def test_valid_event():
         event=event_name,
         event_id=event_id,
         timestamp=timestamp,
+        test_event_code=auth.tiktok_test_event_code,
         context=context,
         properties=properties
     )
 
-    print(event.json(indent=4))
+    # print(event.json(indent=4))
+    print(event.timestamp)
 
     assert event.pixel_code == pixel_code
     assert event.event.value == event_name
@@ -60,8 +63,45 @@ def test_valid_event():
     assert context.user.phone_number == '+5541998862934'
     assert context.user.ttp == '94e2a4j9-h3j5-k2h5-98cc-c84a745mk098'
 
-def test_invalid_event():
-    pass
+# def test_invalid_event():
+#     with pytest.raises(ValidationError):
+#         auth = Auth()
+#         pixel_code = auth.tiktok_pixel_id
+#         event_name = 1234
+#         event_id = ''
+#         timestamp = "2023-01-29"
+#         # print(f'Event time: {timestamp}')
+#         context = Context(
+#             user_agent='',
+#             ad=Ad(callback='xxx.xxx.xxx.x' ), # ttclid
+#             page=Page(
+#                 url='',
+#                 referrer='https://www.google.com'
+#             ),
+#             user=User(
+#                 external_id='',
+#                 email='testtest.com',
+#                 phone_number='554199886',
+#                 ttp='',
+#             ))
+#         properties = Properties(
+#             currency='US', # ISO 4217
+#             value=-1.00,
+#             description='',
+#             query='',
+#             status='',
+#             contents=[{"content_id": True, "quantity": -1, "price": -1.00, "content_type": "product"}]
+
+#         )
+#         event = Event(
+#             pixel_code=pixel_code,
+#             event=event_name,
+#             event_id=event_id,
+#             timestamp=timestamp,
+#             context=context,
+#             properties=properties
+#         )
+
 
 
 

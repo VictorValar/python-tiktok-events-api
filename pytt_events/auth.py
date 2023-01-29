@@ -1,9 +1,10 @@
-from pydantic import BaseSettings
-
+from pydantic import BaseSettings, constr
+from typing import Optional
 class Auth(BaseSettings):
-    tik_tok_access_token: str
-    tik_tok_pixel_id: str
-    tik_tok_api_version: str = '1.3'
+    tiktok_access_token: str
+    tiktok_pixel_id: str
+    tiktok_test_event_code: Optional[str]
+    tiktok_api_version: constr(strip_whitespace=True, min_length=4) = 'v1.3'
 
     class Config:
         env_file = '.env'
