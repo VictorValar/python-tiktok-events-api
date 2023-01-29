@@ -1,4 +1,11 @@
-from pydantic import BaseModel, ValidationError, conlist
+from pydantic import (
+    BaseModel,
+    ValidationError,
+    conlist,
+    constr,
+    PositiveFloat,
+    PositiveInt
+)
 from typing import Optional
 from enum import Enum
 
@@ -13,19 +20,19 @@ class ContentType(Enum):
     PRODUCT_GROUP = 'product_group'
 
 class Content(BaseModel):
-    content_id: str
-    quantity: int
-    price: float
+    content_id: constr(strip_whitespace=True, min_length=1)
+    quantity: PositiveInt
+    price: PositiveFloat
     content_type: ContentType
-    content_category: Optional[str]
-    content_name: Optional[str]
+    content_category: Optional[constr(min_length=1)]
+    content_name: Optional[constr(min_length=1)]
 
 class Properties(BaseModel):
-    currency: Optional[str]
-    value: Optional[float]
-    description: Optional[str]
-    query: Optional[str]
-    status: Optional[str]
+    currency: Optional[constr(strip_whitespace=True, min_length=3, max_length=3)]
+    value: Optional[PositiveFloat]
+    description: Optional[constr(min_length=1)]
+    query: Optional[constr(min_length=1)]
+    status: Optional[constr(min_length=1)]
     contents: Optional[conlist(
         item_type=Content, unique_items=True, min_items=1
     )]
