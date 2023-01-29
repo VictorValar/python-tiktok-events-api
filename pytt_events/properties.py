@@ -6,11 +6,11 @@ class ContentType(Enum):
     """
     For individual products.
     """
-    product = 'product'
+    PRODUCT = 'product'
     """
     For product groups (Items and variants).
     """
-    product_group = 'product_group'
+    PRODUCT_GROUP = 'product_group'
 
 class Content(BaseModel):
     content_id: str

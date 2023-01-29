@@ -7,56 +7,56 @@ class SupportedEvents(Enum):
     """
     When a page is viewed.
     """
-    ViewContent = 'ViewContent'
+    VIEW_CONTENT = 'ViewContent'
     """
     When a button is clicked.
     """
-    ClickButton = 'ClickButton'
+    CLICK_BUTTON = 'ClickButton'
     """
     When a search is made.
     """
-    Search = 'Search'
+    SEARCH = 'Search'
     """
     When an item is added to a wishlist.
     """
-    AddToWishlist = 'AddToWishlist'
+    ADD_TO_WHISHLIST = 'AddToWishlist'
     """
     When an item is added to the shopping cart.
     """
-    AddToCart = 'AddToCart'
+    ADD_TO_CART = 'AddToCart'
     """
     When the checkout process is started.
     """
-    InitiateCheckout = 'InitiateCheckout'
+    INITIATE_CHECKOUT = 'InitiateCheckout'
     """
     When payment information is added in the checkout flow.
     """
-    AddPaymentInfo = 'AddPaymentInfo'
+    ADD_PAYMENT_INFO = 'AddPaymentInfo'
     """
     When a payment is completed.
     """
-    CompletePayment = 'CompletePayment'
+    COMPLETE_PAYMENT = 'CompletePayment'
     """
     When an order is placed.
     """
-    PlaceAnOrder = 'PlaceAnOrder'
+    PLACE_AN_ORDER = 'PlaceAnOrder'
     """
     When contact or consultation occurs.
     """
-    Contact = 'Contact'
+    CONTACT = 'Contact'
     """
     When a button to open an external browser download page is clicked.
     """
-    Download = 'Download'
+    DOWNLOAD = 'Download'
     """
     When a form is submitted.
     """
-    SubmitForm = 'SubmitForm'
+    SUBMIT_FORM = 'SubmitForm'
     """
     When a registration is completed.
     """
-    CompleteRegistration = 'CompleteRegistration'
+    COMPLETE_REGISTRATION = 'CompleteRegistration'
     """
     When a subscription is made.
     """
-    Subscribe = 'Subscribe'
+    SUBSCRIBE = 'Subscribe'
