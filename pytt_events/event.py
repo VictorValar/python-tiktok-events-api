@@ -4,20 +4,20 @@ https://ads.tiktok.com/marketing_api/docs?id=1705001902887214
 Author: @ValarVictor
 '''
 
-from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from pydantic import BaseModel, constr
+from typing import Optional
 from pytt_events.supported_events import SupportedEvents
 from pytt_events.auth import Auth
 from pytt_events.context import Context
 from pytt_events.properties import Properties
+import datetime
 
-# TikTok events
+# TikTok event
 class Event(BaseModel):
-    pixel_code: str
+    pixel_code: constr(strip_whitespace=True, min_length=1, max_length=64)
     event: SupportedEvents
     event_id: Optional[str]
-    timestamp: Optional[str] # ISO 8601 format
+    timestamp: datetime.datetime # ISO 8601 format
     context: Context
     properties: Optional[Properties]
-
 

@@ -9,13 +9,14 @@ from pytt_events.context import Context, Ad, Page, User
 def test_valid_event():
     auth = Auth()
     pixel_code = auth.tik_tok_pixel_id
-    event_name = SupportedEvents.ViewContent
+    event_name = "ViewContent"
     event_id = '1234'
-    timestamp = datetime.now().isoformat(timespec='seconds', sep='T'); print(timestamp)
+    timestamp = "2023-01-29 13:37:26-03:00"
+    # print(f'Event time: {timestamp}')
     context = Context(
-        user_agent='',
-        ip='999.999.999.999',
-        ad=Ad(callback='s.s.2.2sssss' ), # ttclid
+        user_agent='Chrome/87.0.4280.88 Safari/537.36 OPR/73.0.3856.344 (Edition Yx GX)',
+        ip='186.212.33.108',
+        ad=Ad(callback='x.x.x.xxxxxxxxxxxx' ), # ttclid
         page=Page(
             url='https://www.example.com',
             referrer='https://www.google.com'
@@ -24,7 +25,7 @@ def test_valid_event():
             external_id='123456',
             email='test@test.com',
             phone_number='+5541998862934',
-            ttp='test_ttp',
+            ttp='94e2a4j9-h3j5-k2h5-98cc-c84a745mk098',
         ))
     properties = Properties(
         currency='USD',
@@ -32,7 +33,7 @@ def test_valid_event():
         description='test description',
         query='test query',
         status='test status',
-        contents={"id": "12345", "quantity": 1, "item_price": 1.00}
+        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": "product"}]
 
     )
     event = Event(
@@ -44,19 +45,23 @@ def test_valid_event():
         properties=properties
     )
 
+    print(event.json(indent=4))
+
     assert event.pixel_code == pixel_code
-    assert event.event == event_name
+    assert event.event.value == event_name
     assert event.event_id == event_id
-    assert event.timestamp == timestamp
+    assert str(event.timestamp) == timestamp
     assert event.context == context
     assert event.properties == properties
+    assert context.page.url == 'https://www.example.com'
+    assert context.page.referrer == 'https://www.google.com'
+    assert context.user.external_id == '123456'
+    assert context.user.email == 'test@test.com'
+    assert context.user.phone_number == '+5541998862934'
+    assert context.user.ttp == '94e2a4j9-h3j5-k2h5-98cc-c84a745mk098'
 
-    # assert context.page.url == 'https://www.example.com'
-    # assert context.page.referrer == 'https://www.google.com'
-    # assert context.user.external_id == '67890'
-    # assert context.user.email == 'test@example.com'
-    # assert context.user.phone_number == '555-555-5555'
-    # assert context.user.ttp == 'test_ttp'
+def test_invalid_event():
+    pass
 
 
 

@@ -1,6 +1,24 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError, conlist
 from typing import Optional
-from pytt_events.contents import Contents
+from enum import Enum
+
+class ContentType(Enum):
+    """
+    For individual products.
+    """
+    product = 'product'
+    """
+    For product groups (Items and variants).
+    """
+    product_group = 'product_group'
+
+class Content(BaseModel):
+    content_id: str
+    quantity: int
+    price: float
+    content_type: ContentType
+    content_category: Optional[str]
+    content_name: Optional[str]
 
 class Properties(BaseModel):
     currency: Optional[str]
@@ -8,4 +26,8 @@ class Properties(BaseModel):
     description: Optional[str]
     query: Optional[str]
     status: Optional[str]
-    contents: Optional[dict]
+    contents: Optional[conlist(
+        item_type=Content, unique_items=True, min_items=1
+    )]
+
+
