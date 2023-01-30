@@ -2,7 +2,7 @@ from enum import Enum
 
 # Supported web events
 # https://ads.tiktok.com/marketing_api/docs?id=1741601162187777
-class SupportedEvents(Enum):
+class SupportedEvents(str, Enum):
 
     """
     When a page is viewed.

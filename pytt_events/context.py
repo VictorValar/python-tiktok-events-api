@@ -49,6 +49,7 @@ class User(BaseModel):
     phone_number: Optional[str]
     ttp: Optional[constr(min_length=1, strip_whitespace=True)]
 
+
     @validator('phone_number')
     @classmethod
     def validate_phone_number(cls, field_value):

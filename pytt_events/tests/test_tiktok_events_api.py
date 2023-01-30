@@ -1,4 +1,4 @@
-from ..event_request import EventWrapper
+from ..tiktok_events_api import TikTokEventsApi
 from ..event import Event
 from ..auth import Auth
 from ..context import Context, Page, User, Ad
@@ -6,7 +6,7 @@ from ..properties import Properties
 import json
 
 def test_post_event():
-    event_request = EventWrapper()
+    event_request = TikTokEventsApi()
     auth = Auth()
     pixel_code = auth.tiktok_pixel_id
     event_name = "ViewContent"
@@ -45,7 +45,7 @@ def test_post_event():
         properties=properties
     )
 
-    print(event.json(indent=4, exclude_none=True))
+    # print(event.json(indent=4, exclude_none=True))
 
     event_response = event_request.post_event(
         event=event,

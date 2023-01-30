@@ -1,17 +1,21 @@
 from requests.exceptions import HTTPError
-from . event import Event
-from . auth import Auth
+from .event import Event
+from .auth import Auth
 import requests
 import logging
+import json
 
-class EventWrapper(object):
+class TikTokEventsApi(object):
     ROOT = 'https://business-api.tiktok.com/open_api/'
-    EVENT_PATH = '/pixel/track/'
+
 
     def post_event(self, event: Event, auth: Auth) -> str:
 
-        url = self.ROOT + auth.tiktok_api_version + self.EVENT_PATH
-        payload = event.json()
+        EVENT_PATH = '/pixel/track/'
+
+        url = self.ROOT + auth.tiktok_api_version + EVENT_PATH
+
+        payload = json.dumps(event.normalize_data(), indent=4, sort_keys=True, default=str)
 
         headers = {'Content-Type': 'application/json', 'Access-Token': auth.tiktok_access_token}
 
@@ -28,6 +32,6 @@ class EventWrapper(object):
 
             return response
 
-        except Exception as exeption:
-            logging.error(exeption)
-            raise exeption
+        except Exception as exp_info:
+            logging.error(exp_info)
+            raise exp_info

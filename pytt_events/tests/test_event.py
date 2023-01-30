@@ -15,17 +15,17 @@ def test_valid_event():
     event_id = '1234'
     timestamp = "2023-01-29 13:37:26-03:00"
     context = Context(
-        user_agent='Chrome/87.0.4280.88 Safari/537.36 OPR/73.0.3856.344 (Edition Yx GX)',
-        ip='186.212.33.108',
+        user_agent='Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion',
+        ip='13.57.97.131',
         ad=Ad(callback='E.C.P.v3fQ2RHacdksKfofPmlyuStIIHJ4Af1tKYxF9zz2c2PLx1Oaw15oHpcfl5AH' ), # ttclid
         page=Page(
             url='https://www.example.com',
             referrer='https://www.google.com'
         ),
         user=User(
-            external_id='123456',
+            external_id='123456_ssx',
             email='test@test.com',
-            phone_number='+5541998862934',
+            phone_number='+5541998552955',
             ttp='94e2a4j9-h3j5-k2h5-98cc-c84a745mk098',
         ))
     properties = Properties(
@@ -34,7 +34,7 @@ def test_valid_event():
         description='test description',
         query='test query',
         status='test status',
-        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": "product"}]
+        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": "product", "content_name": "test content name", "content_category": "test content category"}]
 
     )
     event = Event(
@@ -58,52 +58,9 @@ def test_valid_event():
     assert event.properties == properties
     assert context.page.url == 'https://www.example.com'
     assert context.page.referrer == 'https://www.google.com'
-    assert context.user.external_id == '123456'
+    assert context.user.external_id == '123456_ssx'
     assert context.user.email == 'test@test.com'
-    assert context.user.phone_number == '+5541998862934'
+    assert context.user.phone_number == '+5541998552955'
     assert context.user.ttp == '94e2a4j9-h3j5-k2h5-98cc-c84a745mk098'
-
-# def test_invalid_event():
-#     with pytest.raises(ValidationError):
-#         auth = Auth()
-#         pixel_code = auth.tiktok_pixel_id
-#         event_name = 1234
-#         event_id = ''
-#         timestamp = "2023-01-29"
-#         # print(f'Event time: {timestamp}')
-#         context = Context(
-#             user_agent='',
-#             ad=Ad(callback='xxx.xxx.xxx.x' ), # ttclid
-#             page=Page(
-#                 url='',
-#                 referrer='https://www.google.com'
-#             ),
-#             user=User(
-#                 external_id='',
-#                 email='testtest.com',
-#                 phone_number='554199886',
-#                 ttp='',
-#             ))
-#         properties = Properties(
-#             currency='US', # ISO 4217
-#             value=-1.00,
-#             description='',
-#             query='',
-#             status='',
-#             contents=[{"content_id": True, "quantity": -1, "price": -1.00, "content_type": "product"}]
-
-#         )
-#         event = Event(
-#             pixel_code=pixel_code,
-#             event=event_name,
-#             event_id=event_id,
-#             timestamp=timestamp,
-#             context=context,
-#             properties=properties
-#         )
-
-
-
-
 
 

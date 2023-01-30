@@ -9,7 +9,7 @@ from pydantic import (
 from typing import Optional
 from enum import Enum
 
-class ContentType(Enum):
+class ContentType(str, Enum):
     """
     For individual products.
     """

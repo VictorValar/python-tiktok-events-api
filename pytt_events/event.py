@@ -11,6 +11,7 @@ from pytt_events.auth import Auth
 from pytt_events.context import Context
 from pytt_events.properties import Properties
 import datetime
+from hashlib import sha256
 
 # TikTok event
 class Event(BaseModel):
@@ -21,4 +22,30 @@ class Event(BaseModel):
     timestamp: datetime.datetime # ISO 8601 format
     context: Context
     properties: Optional[Properties]
+
+    def normalize_data(self) -> dict:
+        '''
+        Normalize data to be sent to TikTok API
+        Also hashes identifieable data with SHA256
+        '''
+        event = self.dict()
+        data = event.get('context').get('user')
+
+        external_id = data.get('external_id').lower().replace(' ', '')
+        hashed_external_id = sha256(external_id.encode('utf-8')).hexdigest() if external_id else None
+
+        email = data.get('email').lower().replace(' ', '')
+        hashed_email = sha256(email.encode('utf-8')).hexdigest() if email else None
+
+        phone_number = data.get('phone_number').lower().replace(' ', '')
+        hashed_phone_number = sha256(phone_number.encode('utf-8')).hexdigest() if phone_number else None
+
+        data['external_id'] = hashed_external_id
+        data['email'] = hashed_email
+        data['phone_number'] = hashed_phone_number
+        data['ttp'] = data.get('ttp').lower().replace(' ', '')
+
+        event['context']['user'] = data
+
+        return event
 
