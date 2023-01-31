@@ -58,7 +58,6 @@ class User(BaseModel):
             phonenumbers.format_number(number, phonenumbers.PhoneNumberFormat.E164)
 
             is_possible = phonenumbers.is_possible_number(number)
-            # print(f'Valid Phone: {is_possible}')
 
             if phonenumbers.is_possible_number(number) == False:
                 raise ContextFormatError(value=field_value, message='Must be a valid phone number: +{country code}{local code}{phone number} / +001199999999')

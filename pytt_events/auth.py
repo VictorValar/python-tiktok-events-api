@@ -1,6 +1,6 @@
 from pydantic import BaseSettings, constr
 from typing import Optional
-class Auth(BaseSettings):
+class TikTokAuth(BaseSettings):
     tiktok_access_token: str
     tiktok_pixel_id: str
     tiktok_test_event_code: Optional[str]

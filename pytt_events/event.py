@@ -7,7 +7,7 @@ Author: @ValarVictor
 from pydantic import BaseModel, constr
 from typing import Optional
 from pytt_events.supported_events import SupportedEvents
-from pytt_events.auth import Auth
+from pytt_events.auth import TikTokAuth
 from pytt_events.context import Context
 from pytt_events.properties import Properties
 import datetime
