@@ -1,10 +1,14 @@
 from pydantic import BaseSettings, constr
 from typing import Optional
 class TikTokAuth(BaseSettings):
-    tiktok_access_token: str
-    tiktok_pixel_id: str
-    tiktok_test_event_code: Optional[str]
-    tiktok_api_version: constr(strip_whitespace=True, min_length=4) = 'v1.3'
+    '''
+    Handles TikTok Auth data.
+    Throws a ValidationError if required environment vars are not set.
+    '''
+    TIKTOK_ACESS_TOKEN: str
+    TIKTOK_PIXEL_ID: str
+    TIKTOK_TEST_EVENT_CODE: Optional[str]
+    TIKTOK_API_VERSION: constr(strip_whitespace=True, min_length=4) = 'v1.3'
 
     class Config:
         env_file = '.env'

@@ -9,19 +9,21 @@ import logging
 #     # filemode='w'
 # )
 
+
 def test_post_event(event, auth):
 
-    api = TikTokEventsApi()
-
-    event_response = api.post_event(
+    response = TikTokEventsApi().post_event(
         event=event,
         auth=auth
     )
-    logging.info(event_response.json())
-    json_response= event_response.json()
+
+    logging.info(response.json())
+    json_response = response.json()
+
     assert json_response['code'] == 0
 
-def test_post_events_in_bulk( event, auth):
+
+def test_post_events_in_bulk(event, auth):
 
     api = TikTokEventsApi()
 
@@ -31,7 +33,8 @@ def test_post_events_in_bulk( event, auth):
         events=events,
         auth=auth
     )
+
     logging.info(batch_response.json())
-    json_response= batch_response.json()
+    json_response = batch_response.json()
 
     assert json_response['code'] == 0

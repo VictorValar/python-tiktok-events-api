@@ -1,14 +1,6 @@
-import pytest
-from datetime import datetime
-from pytt_events.supported_events import SupportedEvents
-from pytt_events.auth import TikTokAuth
-from pytt_events.event import Event
-from pytt_events.properties import Properties
-from pytt_events.context import Context, Ad, Page, User
-from pydantic import ValidationError
-from ..context import ContextFormatError
+# Tests for the Event class
 
-def test_valid_event(event, auth):
+def test_valid_event(event):
 
     assert event.pixel_code == 'CFAFTJJC77U9H3ERQ210'
     assert event.context.user_agent == 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36'

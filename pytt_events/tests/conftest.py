@@ -38,10 +38,10 @@ def event() -> Event:
 
     )
     auth = TikTokAuth()
-    pixel_code = auth.tiktok_pixel_id
+    pixel_code = auth.TIKTOK_PIXEL_ID
     event = Event(
         pixel_code=pixel_code,
-        test_event_code=auth.tiktok_test_event_code,
+        test_event_code=auth.TIKTOK_TEST_EVENT_CODE,
         event=event_name,
         event_id=event_id,
         timestamp=timestamp,

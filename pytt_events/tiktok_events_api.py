@@ -7,7 +7,13 @@ import json
 from requests import Response
 
 class TikTokEventsApi:
-    ROOT = 'https://business-api.tiktok.com/open_api/'
+    '''
+    TikTok Events API class for reporting web events to TikTok.
+    Allows for reporting of web events one at a time or in bulk.
+    '''
+
+    def __init__(self):
+        self.ROOT = 'https://business-api.tiktok.com/open_api/'
 
     def post_events_in_bulk(self, events: list, auth: TikTokAuth) -> Response:
         '''
@@ -20,12 +26,12 @@ class TikTokEventsApi:
         for event in events:
             batch.append(event.normalize_data())
 
-        url = self.ROOT + auth.tiktok_api_version + EVENT_PATH
+        url = self.ROOT + auth.TIKTOK_API_VERSION + EVENT_PATH
 
-        headers = {'Content-Type': 'application/json', 'Access-Token': auth.tiktok_access_token}
+        headers = {'Content-Type': 'application/json', 'Access-Token': auth.TIKTOK_ACESS_TOKEN}
 
         payload = {
-            "pixel_code": auth.tiktok_pixel_id,
+            "pixel_code": auth.TIKTOK_PIXEL_ID,
             "batch": batch
         }
 
@@ -48,8 +54,6 @@ class TikTokEventsApi:
             logging.error(exp_info)
             raise exp_info
 
-
-
     def post_event(self, event: Event, auth: TikTokAuth) -> Response:
         '''
         Reports a single web event.
@@ -58,11 +62,11 @@ class TikTokEventsApi:
 
         EVENT_PATH = '/pixel/track/'
 
-        url = self.ROOT + auth.tiktok_api_version + EVENT_PATH
+        url = self.ROOT + auth.TIKTOK_API_VERSION + EVENT_PATH
 
         payload = json.dumps(event.normalize_data(), indent=4, sort_keys=True, default=str)
 
-        headers = {'Content-Type': 'application/json', 'Access-Token': auth.tiktok_access_token}
+        headers = {'Content-Type': 'application/json', 'Access-Token': auth.TIKTOK_ACESS_TOKEN}
 
         try:
             response = requests.post(url, data=payload, headers=headers)
