@@ -12,10 +12,11 @@ Please reference the TikTok Events API documentation for more information on the
 ## Installing
 You can install pytt_events_api by using:
 ``` bash
-pip install pytt_events_api
+#todo
 ```
 
-## Getting Started
+## Quick Start Guide
+Here's a quick guide on how to use the library to send events to TikTok.
 ### Authentication
 The only thing you need to do to authenticate with TikTok Events API is to set the environment variables listed below.
 - `TIKTOK_ACESS_TOKEN`: Events API access token - `Required`
@@ -26,54 +27,73 @@ The only thing you need to do to authenticate with TikTok Events API is to set t
 You can find the values for these variables in the TikTok Events Manager.
 
 The environment variables are loaded when the `TikTokAuth` class is initialized. If the environment variables are not found, the class will raise an exception.
-### Importing the library
+### Imports and initialize the API
 ``` python
-from pytt_events_api import TikTokEventsAPI, SupportedEvents, \
-Event, Context, Properties, Content, ContentType
+from pytt_events_api import TikTokEventsAPI, Context, Properties, Content
+from pytt_events.event import Event
+from pytt_events.properties import Properties, ContentType
+from pytt_events.context import Context, Ad, Page, User
 
 api = TikTokEventsApi()
 auth = TikTokAuth()
 ```
+
+### Creating an event
+``` python
+context = Context(
+    user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36',
+    ip='13.57.97.131',
+    ad=Ad(callback='E.C.P.v3fQ2RHacdkfKfofPmlyuStIIHJ4Af1tKYxF9zz2c2PLx1Oaw15oHpcfl5AH' ), # ttclid
+    page=Page(
+        url='https://www.example.com',
+        referrer='https://www.google.com'
+    ),
+    user=User(
+        external_id='123456',
+        email='test@test.com',
+        phone_number='+5541998862934',
+        ttp='94e2a4j9-h3ss-k2h5-98cc-c84a745mk098',
+    ))
+properties = Properties(
+    currency='BRL', # ISO 4217
+    value=1.00,
+    description='mock description',
+    query='mock query',
+    status='mock status',
+    contents=[Content(
+        content_type=ContentType.PRODUCT,
+        content_id='123456789',
+        content_name='mock content name',
+        content_category='mock content category',
+        price=1.00,
+        quantity=1
+    )]
+)
+event = Event (
+    pixel_code=auth.TIKTOK_PIXEL_ID,
+    test_event_code=auth.TIKTOK_TEST_EVENT_CODE,
+    event='ViewContent',
+    event_id='123456789',
+    timestamp='2023-02-01T00:00:00-03:00', # str or datetime object
+    context=context,
+    properties=properties
+)
+```
+
 ### Sending an event
 ``` python
-
 response = api.post_event(
     event=event,
     auth=auth
 )
 ```
 
-
-
 ### Sending events in bulk
 ``` python
+events = []
 response = api.post_events_in_bulk(events=events, auth=auth)
 ```
-### Creating an event
-``` python
-#todo
-```
 
-## Examples
-
-
-## Classes
-### Event
-The main class in this code is the `Event` class, which defines the structure of a TikTok event and the methods associated with it.
-
-The `Event` class uses the `BaseModel` from the `pydantic` library to validate the data. The `normalize_data` method modifies the `Context` object to hash identifiable data for privacy purposes before returning the entire event as a dictionary.
-
-#### Fields
-- `pixel_code`: A string that represents the pixel code for the event. The field is stripped of whitespaces and must have a minimum length of 1.
-- `test_event_code`: An optional string that represents the test event code. The field is stripped of whitespaces.
-- `event`: A `SupportedEvents` object that represents the type of event.
-- `event_id`: An optional string that represents the event ID. The field is stripped of whitespaces and must have a minimum length of 1.
-- `timestamp`: A `datetime` object that represents the event's timestamp in ISO 8601 format.
-- `context`: A `Context` object that provides additional information about the event such as the circumstances when the event was triggered and user information.
-- `properties`: An optional `Properties` object that provides additional properties for the event like the value, currency and items added to cart/purchased.
-
-#### Methods
-- `normalize_data`: This method normalizes the data to be sent to the TikTok API. It also hashes identifiable data (such as email and phone number) using SHA256. The method returns a dictionary that contains the normalized data.
 
 
 
