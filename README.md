@@ -12,7 +12,7 @@ Please reference the TikTok Events API documentation for more information on the
 ## Installing
 You can install pytt_events_api by using:
 ``` bash
-#todo
+pip install pytt-events-api
 ```
 
 ## Quick Start Guide

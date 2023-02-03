@@ -14,7 +14,7 @@ with open(requirements_filename) as f:
     # INSTALL_REQUIRES = [str(line[:-1]) for line in f]
     INSTALL_REQUIRES = ['requests', 'pytest', 'pydantic', 'phonenumbers', 'email-validator', 'ipaddress', 'pydantic[dotenv]']
 
-VERSION = '0.0.8'
+VERSION = '0.1.0'
 DESCRIPTION = 'Python wrapper for the TikTok Events API'
 LONG_DESCRIPTION = long_description
 PACKAGE_LICENSE = 'LICENSE.txt'
@@ -33,7 +33,7 @@ setup(
     install_requires=INSTALL_REQUIRES,
     keywords=['python', 'tiktok', 'events', 'api', 'tiktok ads', 'tiktok events api'],
     classifiers=[
-        "Development Status :: 2 - Testing",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "Operating System :: Unix",

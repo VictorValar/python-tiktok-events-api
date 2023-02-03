@@ -7,7 +7,6 @@ Author: @ValarVictor
 from pydantic import BaseModel, constr
 from typing import Optional
 from pytt_events.supported_events import SupportedEvents
-from pytt_events.auth import TikTokAuth
 from pytt_events.context import Context
 from pytt_events.properties import Properties
 import datetime
@@ -40,8 +39,12 @@ class Event(BaseModel):
         email = data.get('email').lower().replace(' ', '')
         hashed_email = sha256(email.encode('utf-8')).hexdigest() if email else None
 
-        phone_number = data.get('phone_number').lower().replace(' ', '')
-        hashed_phone_number = sha256(phone_number.encode('utf-8')).hexdigest() if phone_number else None
+        phone_number = data.get('phone_number')
+        if phone_number != None:
+            phone_number.replace(' ', '')
+        hashed_phone_number = sha256(
+            phone_number.encode('utf-8')
+        ).hexdigest() if phone_number else None
 
 
         data['email'] = hashed_email
