@@ -33,10 +33,13 @@ You can find the values for these variables in the TikTok Events Manager.
 The environment variables are loaded when the `TikTokAuth` class is initialized. If the environment variables are not found, the class will raise an exception.
 ### Importing the library and initializing the API
 ``` python
-from pytt_events_api import TikTokEventsAPI, Context, Properties, Content
+from pytt_events.auth import TikTokAuth
+from pytt_events.tiktok_events_api import TikTokEventsApi
 from pytt_events.event import Event
-from pytt_events.properties import Properties, ContentType
+from pytt_events.properties import Properties
 from pytt_events.context import Context, Ad, Page, User
+from pytt_events.properties import ContentType
+from pytt_events.properties import Content
 
 api = TikTokEventsApi()
 auth = TikTokAuth()
