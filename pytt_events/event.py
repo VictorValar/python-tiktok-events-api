@@ -30,9 +30,12 @@ class Event(BaseModel):
         '''
         event = self.dict()
         data = event.get('context').get('user')
+        external_id = data.get('external_id')
 
-        external_id = data.get('external_id').lower().replace(' ', '')
-        hashed_external_id = sha256(external_id.encode('utf-8')).hexdigest() if external_id else None
+        if external_id != None:
+            external_id = data.get('external_id').lower().replace(' ', '')
+            hashed_external_id = sha256(external_id.encode('utf-8')).hexdigest()
+            data['external_id'] = hashed_external_id
 
         email = data.get('email').lower().replace(' ', '')
         hashed_email = sha256(email.encode('utf-8')).hexdigest() if email else None
@@ -40,10 +43,10 @@ class Event(BaseModel):
         phone_number = data.get('phone_number').lower().replace(' ', '')
         hashed_phone_number = sha256(phone_number.encode('utf-8')).hexdigest() if phone_number else None
 
-        data['external_id'] = hashed_external_id
+
         data['email'] = hashed_email
         data['phone_number'] = hashed_phone_number
-        data['ttp'] = data.get('ttp').lower().replace(' ', '')
+        data['ttp'] = data.get('ttp').lower().replace(' ', '') if data.get('ttp') else None
 
         event['context']['user'] = data
 
