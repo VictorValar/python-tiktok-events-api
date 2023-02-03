@@ -1,4 +1,5 @@
 # Tests for the Event class
+from pytt_events.properties import ContentType
 
 def test_valid_event(event):
 
@@ -12,6 +13,7 @@ def test_valid_event(event):
     assert event.properties.currency == 'USD'
     assert event.properties.value == 1.00
     assert event.properties.description == 'test description'
+    assert event.properties.contents == [{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": ContentType.PRODUCT, "content_name": "test content name", "content_category": "test content category"}]
     assert event.properties.query == 'test query'
     assert event.properties.status == 'test status'
     assert event.event.value == 'ViewContent'
