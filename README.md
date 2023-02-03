@@ -9,8 +9,12 @@ This library is an unoffical Python wrapper arround the TikTok Events API, allow
 
 Please reference the TikTok Events API documentation for more information on the API and the data it accepts and requires: https://ads.tiktok.com/marketing_api/docs?id=1741601162187777.
 
+## Disclaimer
+This library is in beta and is not officially supported by TikTok.
+Feedback and contributions are welcome.
+
 ## Installing
-You can install pytt_events_api by using:
+You can install pytt_events_api using pip:
 ``` bash
 pip install pytt-events-api
 ```
@@ -27,7 +31,7 @@ The only thing you need to do to authenticate with TikTok Events API is to set t
 You can find the values for these variables in the TikTok Events Manager.
 
 The environment variables are loaded when the `TikTokAuth` class is initialized. If the environment variables are not found, the class will raise an exception.
-### Imports and initialize the API
+### Importing the library and initializing the API
 ``` python
 from pytt_events_api import TikTokEventsAPI, Context, Properties, Content
 from pytt_events.event import Event
