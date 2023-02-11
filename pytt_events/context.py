@@ -19,24 +19,24 @@ class Ad(BaseModel):
     @classmethod
     def callback_is_valid(cls, value):
         '''
-        Check if the callbaclk value is a valid ttclid
-        Format: E.C.P.v3fQ2RHacdksKfofPmlyuStIIHJ4Af1tKYxF9zz2c2PLx1Oaw15o
+        Check if the callbaclk value is a valid ttclid.
         '''
-        ttclid_error = ContextFormatError(value=value, message='Callback must be a valid ttclid')
+        if value:
+            ttclid_error = ContextFormatError(value=value, message="Callback must be a valid ttclid please check TikTok's documentation for more information on ttclid: https://ads.tiktok.com/marketing_api/docs?id=1739584860883969")
 
-        value_list = value.split('.') if value else None
+            value_list = value.split('.')
 
-        if value[:6] != 'E.C.P.':
-            raise ttclid_error
+            if value[:6] != 'E.C.P.':
+                raise ttclid_error
 
-        if len(value_list) != 4:
-            raise ttclid_error
+            if len(value_list) != 4:
+                raise ttclid_error
 
-        if any(len(value) != 1 for value in value_list[0:3]):
-            raise ttclid_error
+            if any(len(value) != 1 for value in value_list[0:3]):
+                raise ttclid_error
 
-        if len(value_list[3]) <= 1:
-            raise ttclid_error
+            if len(value_list[3]) <= 1:
+                raise ttclid_error
 
         return value
 
