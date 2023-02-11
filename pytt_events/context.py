@@ -24,7 +24,8 @@ class Ad(BaseModel):
         '''
         ttclid_error = ContextFormatError(value=value, message='Callback must be a valid ttclid')
 
-        value_list = value.split('.')
+        value_list = value.split('.') if value else None
+
         if value[:6] != 'E.C.P.':
             raise ttclid_error
 

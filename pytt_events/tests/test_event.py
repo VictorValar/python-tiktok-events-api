@@ -17,7 +17,7 @@ def test_valid_event(event):
     assert event.properties.query == 'test query'
     assert event.properties.status == 'test status'
     assert event.event.value == 'ViewContent'
-    assert event.event_id == '1234'
+    assert event.event_id == '123456789'
     assert event.context.page.url == 'https://www.example.com'
     assert event.context.page.referrer == 'https://www.google.com'
     assert event.context.user.phone_number == '+5541998862934'
