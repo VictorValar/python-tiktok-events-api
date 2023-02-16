@@ -10,7 +10,7 @@ This library is an unoffical Python wrapper arround the TikTok Events API, allow
 Please reference the TikTok Events API documentation for more information on the API and the data it accepts and requires: https://ads.tiktok.com/marketing_api/docs?id=1741601162187777.
 
 ## Disclaimer
-This library is in beta 0.1.0.
+This library is in beta.
 Feedback and contributions are welcome.
 
 ## Installing
