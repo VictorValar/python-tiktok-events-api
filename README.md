@@ -9,6 +9,7 @@ This library is an unoffical Python wrapper arround the TikTok Events API, allow
 
 Please reference the TikTok Events API documentation for more information on the API and the data it accepts and requires: https://ads.tiktok.com/marketing_api/docs?id=1741601162187777.
 
+TikTok API uses custom return error codes. Reference [this TikTok Events API documentation](https://ads.tiktok.com/marketing_api/docs?id=1737172488964097) for more information on the error codes.
 ## Disclaimer
 This library is in beta.
 Feedback and contributions are welcome.
