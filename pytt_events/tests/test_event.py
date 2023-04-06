@@ -6,7 +6,7 @@ def test_valid_event(event):
     assert event.pixel_code == 'CFAFTJJC77U9H3ERQ210'
     assert event.context.user_agent == 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36'
     assert str(event.context.ip) == '13.57.97.131'
-    assert event.context.ad.callback == 'E.C.P.v3fQ2RHacdksKfofPmlyuStIIHJ4Af1tKYxF9zz2c2PLx1Oaw15oHpcfl5AH'
+    assert event.context.ad.callback == ''
     assert event.context.page.url == 'https://www.example.com'
     assert event.context.page.referrer == 'https://www.google.com'
     assert event.context.user.email == 'test@test.com'

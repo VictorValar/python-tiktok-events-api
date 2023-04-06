@@ -12,7 +12,7 @@ class ContextFormatError(Exception):
 class Ad(BaseModel):
     # ttclid
     callback: Optional[constr(
-        strip_whitespace=True, min_length=1, max_length=501
+        strip_whitespace=True, max_length=501
     )]
 
     @validator('callback', pre=True)

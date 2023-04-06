@@ -1,11 +1,11 @@
 # Python TikTok Events API
 
-The TikTok Events API allows advertisers to share the actions customers take on their websites and offiline directly with TikTok. This allows advertisers to measure the effectiveness of their TikTok campaigns and optimize their ad spend.
-
 This library is an unoffical Python wrapper arround the TikTok Events API, allowing for easy interaction with the API:
 - Pydantic types are used to validate the data to be sent to TikTok.
 - Customer identifiable information is hashed using SHA256 before being sent to the TikTok API.
 - Events can be sent one at a time or in batches.
+
+The TikTok Events API allows advertisers to share the actions customers take on their websites and offiline directly with TikTok. This allows advertisers to measure the effectiveness of their TikTok campaigns and optimize their ad spend.
 
 Please reference the TikTok Events API documentation for more information on the API and the data it accepts and requires: https://ads.tiktok.com/marketing_api/docs?id=1741601162187777.
 

@@ -17,7 +17,7 @@ def event() -> Event:
     context = Context(
         user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36',
         ip='13.57.97.131',
-        ad=Ad(callback='E.C.P.v3fQ2RHacdksKfofPmlyuStIIHJ4Af1tKYxF9zz2c2PLx1Oaw15oHpcfl5AH' ), # ttclid
+        ad=Ad(callback='' ), # ttclid
         page=Page(
             url='https://www.example.com',
             referrer='https://www.google.com'

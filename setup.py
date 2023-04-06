@@ -14,7 +14,7 @@ with open(requirements_filename) as f:
     # INSTALL_REQUIRES = [str(line[:-1]) for line in f]
     INSTALL_REQUIRES = ['requests', 'pytest', 'pydantic', 'phonenumbers', 'email-validator', 'ipaddress', 'pydantic[dotenv]']
 
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 DESCRIPTION = 'Python wrapper for the TikTok Events API'
 LONG_DESCRIPTION = long_description
 PACKAGE_LICENSE = 'LICENSE.txt'
