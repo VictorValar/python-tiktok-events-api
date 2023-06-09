@@ -23,10 +23,10 @@ class Event(BaseModel):
     properties: Optional[Properties]
 
     def normalize_data(self) -> dict:
-        '''
+        """
         Normalize data to be sent to TikTok API
-        Also hashes identifieable data with SHA256
-        '''
+        Also hashes identifiable data with SHA256
+        """
         event = self.dict()
         data = event.get('context').get('user')
         external_id = data.get('external_id')

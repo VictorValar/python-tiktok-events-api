@@ -18,9 +18,9 @@ class Ad(BaseModel):
     @validator('callback', pre=True)
     @classmethod
     def callback_is_valid(cls, value):
-        '''
-        Check if the callbaclk value is a valid ttclid.
-        '''
+        """
+        Check if the callback value is a valid ttclid.
+        """
         if value:
             ttclid_error = ContextFormatError(value=value, message="Callback must be a valid ttclid please check TikTok's documentation for more information on ttclid: https://ads.tiktok.com/marketing_api/docs?id=1739584860883969")
 
