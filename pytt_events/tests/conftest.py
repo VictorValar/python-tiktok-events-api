@@ -1,8 +1,9 @@
 from pytest  import  fixture
 from pytt_events.auth import TikTokAuth
 from pytt_events.event import Event
-from pytt_events.properties import Properties
+from pytt_events.properties import Properties, ContentType
 from pytt_events.context import Context, Ad, Page, User
+from pytt_events.supported_events import SupportedEvents
 
 @fixture
 def auth() -> TikTokAuth:
@@ -13,7 +14,7 @@ def auth() -> TikTokAuth:
 def event() -> Event:
     event_name = "ViewContent"
     event_id = '123456789'
-    timestamp = "2023-01-29 13:37:26-03:00"
+    timestamp = "2023-06-09 13:37:26-03:00"
     context = Context(
         user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36',
         ip='13.57.97.131',
@@ -29,12 +30,13 @@ def event() -> Event:
             ttp='94e2a4j9-h3j5-k2h5-98cc-c84a745mk098',
         ))
     properties = Properties(
-        currency='USD', # ISO 4217
+        currency='BRL', # ISO 4217
         value=1.00,
+        content_type=ContentType.PRODUCT,
         description='test description',
         query='test query',
         status='test status',
-        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_type": "product", "content_name": "test content name", "content_category": "test content category"}]
+        contents=[{"content_id": "12345", "quantity": 1, "price": 1.00, "content_name": "test content name", "content_category": "test content category"}]
 
     )
     auth = TikTokAuth()
@@ -42,7 +44,7 @@ def event() -> Event:
     event = Event(
         pixel_code=pixel_code,
         test_event_code=auth.TIKTOK_TEST_EVENT_CODE,
-        event=event_name,
+        event=SupportedEvents.VIEW_CONTENT,
         event_id=event_id,
         timestamp=timestamp,
         context=context,

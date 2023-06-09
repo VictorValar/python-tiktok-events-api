@@ -23,13 +23,13 @@ class Content(BaseModel):
     content_id: constr(strip_whitespace=True, min_length=1)
     quantity: PositiveInt
     price: PositiveFloat
-    content_type: ContentType
     content_category: constr(min_length=1)
     content_name: constr(min_length=1)
 
 class Properties(BaseModel):
     currency: Optional[constr(strip_whitespace=True, min_length=3, max_length=3)]
     value: Optional[PositiveFloat]
+    content_type: ContentType
     description: Optional[constr(min_length=1)]
     query: Optional[constr(min_length=1)]
     status: Optional[constr(min_length=1)]
