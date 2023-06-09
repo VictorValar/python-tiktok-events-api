@@ -28,7 +28,7 @@ class TikTokEventsApi:
 
         url = self.ROOT + auth.TIKTOK_API_VERSION + EVENT_PATH
 
-        headers = {'Content-Type': 'application/json', 'Access-Token': auth.TIKTOK_ACESS_TOKEN}
+        headers = {'Content-Type': 'application/json', 'Access-Token': auth.TIKTOK_ACCESS_TOKEN}
 
         payload = {
             "pixel_code": auth.TIKTOK_PIXEL_ID,
@@ -66,7 +66,7 @@ class TikTokEventsApi:
 
         payload = json.dumps(event.normalize_data(), indent=4, sort_keys=True, default=str)
 
-        headers = {'Content-Type': 'application/json', 'Access-Token': auth.TIKTOK_ACESS_TOKEN}
+        headers = {'Content-Type': 'application/json', 'Access-Token': auth.TIKTOK_ACCESS_TOKEN}
 
         try:
             response = requests.post(url, data=payload, headers=headers)
