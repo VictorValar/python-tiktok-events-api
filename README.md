@@ -88,6 +88,9 @@ event = Event (
 )
 ```
 
+#### Errors in the Docs
+[TikTok's documentation](https://ads.tiktok.com/marketing_api/docs?id=1741601162187777) says that content_type should be a parameter of the Properties object, but it actually is a parameter of the Content object.
+
 ### Sending an event
 ``` python
 response = api.post_event(
