@@ -19,6 +19,9 @@ class ContentType(str, Enum):
     """
     PRODUCT_GROUP = 'product_group'
 
+    def __str__(self):
+        return self.value
+
 class Content(BaseModel):
     content_id: constr(strip_whitespace=True, min_length=1)
     quantity: PositiveInt

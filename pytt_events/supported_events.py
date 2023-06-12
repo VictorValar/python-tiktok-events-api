@@ -19,7 +19,7 @@ class SupportedEvents(str, Enum):
     """
     When an item is added to a wishlist.
     """
-    ADD_TO_WHISHLIST = 'AddToWishlist'
+    ADD_TO_WISHLIST = 'AddToWishlist'
     """
     When an item is added to the shopping cart.
     """
@@ -60,3 +60,6 @@ class SupportedEvents(str, Enum):
     When a subscription is made.
     """
     SUBSCRIBE = 'Subscribe'
+
+    def __str__(self):
+        return self.value
