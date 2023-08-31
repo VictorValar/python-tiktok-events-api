@@ -1,15 +1,6 @@
 from pytt_events.tiktok_events_api import TikTokEventsApi
 import logging
 
-# Logging configuration
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s' #,
-#     # filename='pytt_events.log',
-#     # filemode='w'
-# )
-
-
 def test_post_event(event, auth):
 
     response = TikTokEventsApi().post_event(
