@@ -56,8 +56,7 @@ def test_wrong_content_types_raises_excp():
             quantity='1',
             price='1,00',
             content_category='test content category',
-            content_name=111,
-            content_type=222
+            content_name=111
         )
 
 

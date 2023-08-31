@@ -28,7 +28,6 @@ class Content(BaseModel):
     price: PositiveFloat
     content_category: constr(min_length=1)
     content_name: constr(min_length=1)
-    content_type: ContentType
 
 class Properties(BaseModel):
     currency: Optional[constr(strip_whitespace=True, min_length=3, max_length=3)]
@@ -36,6 +35,7 @@ class Properties(BaseModel):
     description: Optional[constr(min_length=1)]
     query: Optional[constr(min_length=1)]
     status: Optional[constr(min_length=1)]
+    content_type: ContentType
     contents: Optional[conlist(
         item_type=Content, unique_items=True, min_items=1
     )]
