@@ -1,13 +1,16 @@
 from typing import Optional, List, Dict, Any
 import phonenumbers
 import ipaddress
-from pydantic import BaseModel, ValidationError, validator, root_validator, AnyUrl, constr, EmailStr
+from pydantic import BaseModel, ValidationError, validator, root_validator, \
+    AnyUrl, constr, EmailStr
+
 
 class ContextFormatError(Exception):
     def __init__(self, value, message) -> None:
         self.value = value
         self.message = message
         super().__init__(value, message)
+
 
 class Ad(BaseModel):
     # ttclid
@@ -22,7 +25,14 @@ class Ad(BaseModel):
         Check if the callback value is a valid ttclid.
         """
         if value:
-            ttclid_error = ContextFormatError(value=value, message="Callback must be a valid ttclid please check TikTok's documentation for more information on ttclid: https://ads.tiktok.com/marketing_api/docs?id=1739584860883969")
+            ttclid_error = ContextFormatError(
+                value=value,
+                message="Callback must be a valid ttclid please check "
+                        "TikTok's documentation for more information on "
+                        "ttclid: "
+                        "https://ads.tiktok.com/marketing_api/docs?id"
+                        "=1739584860883969"
+            )
 
             value_list = value.split('.')
 
@@ -32,7 +42,7 @@ class Ad(BaseModel):
             if len(value_list) != 4:
                 raise ttclid_error
 
-            if any(len(value) != 1 for value in value_list[0:3]):
+            if any(len(value) != 1 for value in value_list[:3]):
                 raise ttclid_error
 
             if len(value_list[3]) <= 1:
@@ -40,9 +50,11 @@ class Ad(BaseModel):
 
         return value
 
+
 class Page(BaseModel):
     url: AnyUrl
     referrer: Optional[AnyUrl]
+
 
 class User(BaseModel):
     external_id: Optional[constr(min_length=1, strip_whitespace=True)]
@@ -50,18 +62,22 @@ class User(BaseModel):
     phone_number: Optional[str]
     ttp: Optional[constr(min_length=1, strip_whitespace=True)]
 
-
     @validator('phone_number')
     @classmethod
     def validate_phone_number(cls, field_value):
         if field_value:
             number = phonenumbers.parse(field_value, None)
-            phonenumbers.format_number(number, phonenumbers.PhoneNumberFormat.E164)
+            phonenumbers.format_number(number,
+                                       phonenumbers.PhoneNumberFormat.E164)
 
             is_possible = phonenumbers.is_possible_number(number)
 
-            if phonenumbers.is_possible_number(number) == False:
-                raise ContextFormatError(value=field_value, message='Must be a valid phone number: +{country code}{local code}{phone number} / +001199999999')
+            if not phonenumbers.is_possible_number(number):
+                raise ContextFormatError(
+                    value=field_value,
+                    message='Must be a valid phone number: +{country code}{'
+                            'local code}{phone number} / +001199999999'
+                )
 
         return field_value
 
@@ -69,13 +85,18 @@ class User(BaseModel):
     @classmethod
     def validate_user(cls, values):
         if not any(values.values()):
-            raise ContextFormatError(value=values, message='User must have at least one of the following: external_id, email, phone_number, ttp')
+            raise ContextFormatError(
+                value=values,
+                message='User must have at least one of the following: '
+                        'external_id, email, phone_number, ttp'
+            )
         return values
+
 
 # Context object parameters
 class Context(BaseModel):
-    user_agent: constr(min_length=1) # Client user agent
-    ip: ipaddress.IPv4Address # User IP address
-    ad: Optional[Ad] # ttclid
+    user_agent: constr(min_length=1)  # Client user agent
+    ip: ipaddress.IPv4Address  # User IP address
+    ad: Optional[Ad]  # ttclid
     page: Page
     user: User
