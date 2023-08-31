@@ -12,8 +12,9 @@ class TikTokEventsApi:
     Allows for reporting of web events one at a time or in bulk.
     '''
 
-    def __init__(self):
+    def __init__(self, DEBUG=False):
         self.ROOT = 'https://business-api.tiktok.com/open_api/'
+        self.DEBUG = DEBUG
 
     def post_events_in_bulk(self, events: list, auth: TikTokAuth) -> Response:
         '''
@@ -51,7 +52,7 @@ class TikTokEventsApi:
                 return response
 
         except Exception as exp_info:
-            logging.error(exp_info)
+            logging.error(exp_info) if self.DEBUG else None
             raise exp_info
 
     def post_event(self, event: Event, auth: TikTokAuth) -> Response:
@@ -72,14 +73,11 @@ class TikTokEventsApi:
             response = requests.post(url, data=payload, headers=headers)
             json_response = response.json()
 
-            # TikTok API uses custom error codes:
-            # https://ads.tiktok.com/marketing_api/docs?id=1737172488964097
-            if json_response['code'] != 0:
+            if json_response['code'] not in [0, 20001]:
                 raise HTTPError(json_response['code'], json_response['message'])
-            else :
-                logging.info('TikTok Event Response: ' + str(json_response))
 
-                return response
+            logging.info(f'TikTok Event Response: {str(json_response)}') if self.DEBUG else None
+            return response
 
         except Exception as exp_info:
             logging.error(exp_info)
