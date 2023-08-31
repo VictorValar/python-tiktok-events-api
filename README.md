@@ -24,7 +24,7 @@ pip install pytt-events-api
 Here's a quick guide on how to use the library to send events to TikTok.
 ### Authentication
 The only thing you need to do to authenticate with TikTok Events API is to set the environment variables listed below.
-- `TIKTOK_ACESS_TOKEN`: Events API access token - `Required`
+- `TIKTOK_ACCESS_TOKEN`: Events API access token - `Required`
 - `TIKTOK_PIXEL_ID`: The ID of the pixel  - `Required`
 - `TIKTOK_API_VERSION`:  The API version to use, defaults to `v1.3`.
 - `TIKTOK_TEST_EVENT_CODE`: Used so events can be tested without affecting the pixel's data. You may find the test event code in the events manager under the "Test Events" tab.
