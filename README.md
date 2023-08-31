@@ -10,9 +10,9 @@ The TikTok Events API allows advertisers to share the actions customers take on 
 Please reference the TikTok Events API documentation for more information on the API and the data it accepts and requires: https://ads.tiktok.com/marketing_api/docs?id=1741601162187777.
 
 TikTok API uses custom return error codes. Reference [this TikTok Events API documentation](https://ads.tiktok.com/marketing_api/docs?id=1737172488964097) for more information on the error codes.
-## Disclaimer
-This library is in beta.
-Feedback and contributions are welcome.
+## Disclaimers
+1. This library is in beta. Feedback and contributions are welcome.
+2. [TikTok Events API documentation](https://business-api.tiktok.com/portal/docs?rid=oyn7lhbo6ar&id=1741601162187777) states that many fields are optional(such as content_type, contents, query, etc), however as of the last update of this library whenever an event is sent without these fields the TikTok API returns an error and events are not received by the Pixel. This library will be updated as soon as TikTok fixes this issue. 
 
 ## Installing
 You can install pytt_events_api using pip:
