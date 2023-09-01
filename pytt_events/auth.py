@@ -1,6 +1,8 @@
 from pydantic import BaseSettings, constr
 from typing import Optional
-class TikTokAuth(BaseSettings):
+
+
+class TikTokAuth(BaseSettings):  # TODO update
     """
     Handles TikTok Auth data.
     Throws a ValidationError if required environment vars are not set.
