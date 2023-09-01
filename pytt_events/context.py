@@ -1,8 +1,14 @@
-from typing import Optional, List, Dict, Any
+from typing import Optional
 import phonenumbers
 import ipaddress
-from pydantic import BaseModel, ValidationError, validator, root_validator, \
-    AnyUrl, constr, EmailStr
+from pydantic import (
+    BaseModel,
+    validator,
+    root_validator,
+    AnyUrl,
+    constr,
+    EmailStr
+)
 
 
 class ContextFormatError(Exception):
@@ -13,16 +19,23 @@ class ContextFormatError(Exception):
 
 
 class Ad(BaseModel):
-    # ttclid
-    callback: Optional[constr(
+    """ Ad information object.
+
+    If you don't have a ttclid do not include this object in the event.
+    Attributes:
+        callback (str): TikTok Click ID (ttclid).
+    """
+
+    callback: constr(
         strip_whitespace=True, max_length=501
-    )]
+    )
 
     @validator('callback', pre=True)
     @classmethod
     def callback_is_valid(cls, value):
-        """
-        Check if the callback value is a valid ttclid.
+        """ Check if the callback value is a valid ttclid.
+
+        A valid ttclid must start with E.C.P
         """
         if value:
             ttclid_error = ContextFormatError(
@@ -52,11 +65,28 @@ class Ad(BaseModel):
 
 
 class Page(BaseModel):
-    url: AnyUrl
+    """ Page information object.
+
+    If you don't have a source URL or referrer URL do not include this object in the event.
+    Attributes:
+        url (AnyUrl): [Optional] URL of the page where the event happened.
+        referrer (AnyUrl): [Optional] URL of the page where the user came from.
+    """
+    url: Optional[AnyUrl]
     referrer: Optional[AnyUrl]
 
 
 class User(BaseModel):
+    """ The personal data of a user.
+
+    At least one of the following attributes must be provided.
+
+    Attributes:
+        external_id (str): [Optional] User ID.
+        email (EmailStr): [Optional] User email.
+        phone_number (str): [Optional] User phone number.
+        ttp (str): [Optional] TikTok browser ID saved in _ttp cookie.
+    """
     external_id: Optional[constr(min_length=1, strip_whitespace=True)]
     email: Optional[EmailStr]
     phone_number: Optional[str]
@@ -67,10 +97,6 @@ class User(BaseModel):
     def validate_phone_number(cls, field_value):
         if field_value:
             number = phonenumbers.parse(field_value, None)
-            phonenumbers.format_number(number,
-                                       phonenumbers.PhoneNumberFormat.E164)
-
-            is_possible = phonenumbers.is_possible_number(number)
 
             if not phonenumbers.is_possible_number(number):
                 raise ContextFormatError(
@@ -78,6 +104,11 @@ class User(BaseModel):
                     message='Must be a valid phone number: +{country code}{'
                             'local code}{phone number} / +001199999999'
                 )
+
+            field_value = phonenumbers.format_number(
+                number,
+                phonenumbers.PhoneNumberFormat.E164
+            )
 
         return field_value
 
@@ -93,10 +124,21 @@ class User(BaseModel):
         return values
 
 
-# Context object parameters
 class Context(BaseModel):
-    user_agent: constr(min_length=1)  # Client user agent
-    ip: ipaddress.IPv4Address  # User IP address
-    ad: Optional[Ad]  # ttclid
-    page: Page
-    user: User
+    """ Context information object.
+
+    Required to attribute events to TikTok campaigns.
+    Information about the circumstances when the event was triggered, such as User data and conversion URL.
+
+    Attributes:
+        user_agent (str): [Optional] Client user agent.
+        ip (ipaddress.IPv4Address): [Optional] Client IP address.
+        ad (Ad): [Optional] ttclid.
+        page (Page): [Optional] URL of the page where the event happened and URL of the page where the user came from.
+        user (User): [Optional] User data.
+    """
+    user_agent: Optional[constr(min_length=1)]
+    ip: Optional[ipaddress.IPv4Address]
+    ad: Optional[Ad]
+    page: Optional[Page]
+    user: Optional[User]
