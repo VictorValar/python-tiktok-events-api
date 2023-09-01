@@ -1,9 +1,16 @@
+"""
+Supported web events
+https://ads.tiktok.com/marketing_api/docs?id=1741601162187777
+"""
+
 from enum import Enum
 
-# Supported web events
-# https://ads.tiktok.com/marketing_api/docs?id=1741601162187777
-class SupportedEvents(str, Enum):
 
+class SupportedEvents(str, Enum):
+    """List of standard events that can be reported to TikTok.
+
+    At this time you can report custom events but TikTok won't optimize for them.
+    """
     """
     When a page is viewed.
     """
