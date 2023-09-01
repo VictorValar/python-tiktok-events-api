@@ -12,13 +12,13 @@ from pytt_events.properties import Properties
 import datetime
 from hashlib import sha256
 
-# TikTok event
+
 class Event(BaseModel):
     pixel_code: constr(strip_whitespace=True, min_length=1)
     test_event_code: Optional[constr(strip_whitespace=True)]
     event: SupportedEvents
     event_id: Optional[constr(strip_whitespace=True, min_length=1)]
-    timestamp: datetime.datetime # ISO 8601 format
+    timestamp: datetime.datetime  # ISO 8601 format
     context: Context
     properties: Optional[Properties]
 
@@ -26,8 +26,11 @@ class Event(BaseModel):
         """
         Normalize data to be sent to TikTok API
         Also hashes identifiable data with SHA256
+
+        Returns:
+            dict: Normalized data dictionary
         """
-        event = self.dict()
+        event = self.dict(exclude_none=True)
         data = event.get('context').get('user')
         external_id = data.get('external_id')
 
