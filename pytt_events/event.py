@@ -41,7 +41,7 @@ class Event(BaseModel):
     properties: Optional[Properties]
 
     def normalize_data(self) -> dict:
-        """ Normalize data to be sent to TikTok API.
+        """ Normalizes data to be sent to TikTok API.
 
         Strings are transformed to lowercase, white spaces are removed. Also hashes identifiable data with SHA256
 
@@ -49,27 +49,33 @@ class Event(BaseModel):
             dict: Normalized data dictionary
         """
         event = self.dict(exclude_none=True)
-        data = event.get('context').get('user')
-        external_id = data.get('external_id')
+        data = event.get('context').get('user', {})
+        external_id = data.get('external_id', None)
+        email = data.get('email', None)
+        phone_number = data.get('phone_number', None)
+        ttp = data.get('ttp', None)
 
         if external_id is not None:
-            external_id = data.get('external_id').lower().replace(' ', '')
+            external_id = data.get('external_id').replace(' ', '')
             hashed_external_id = sha256(external_id.encode('utf-8')).hexdigest()
             data['external_id'] = hashed_external_id
 
-        email = data.get('email').lower().replace(' ', '')
-        hashed_email = sha256(email.encode('utf-8')).hexdigest() if email else None
+        if email:
+            email = data.get('email').lower().replace(' ', '')
+            hashed_email = sha256(email.encode('utf-8')).hexdigest()
+            data['email'] = hashed_email
 
-        phone_number = data.get('phone_number')
-        if phone_number is not None:
-            phone_number.replace(' ', '')
-        hashed_phone_number = sha256(
-            phone_number.encode('utf-8')
-        ).hexdigest() if phone_number else None
+        if phone_number:
+            # Phone number comes E.164 formatted from User class instance
+            phone_number = data.get('phone_number')
+            hashed_phone_number = sha256(
+                phone_number.encode('utf-8')
+            ).hexdigest()
+            data['phone_number'] = hashed_phone_number
 
-        data['email'] = hashed_email
-        data['phone_number'] = hashed_phone_number
-        data['ttp'] = data.get('ttp').lower().replace(' ', '') if data.get('ttp') else None
+        if ttp:
+            trimmed_ttp = data.get('ttp').replace(' ', '')
+            data['ttp'] = trimmed_ttp
 
         event['context']['user'] = data
 
