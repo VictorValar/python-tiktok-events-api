@@ -68,7 +68,7 @@ def event() -> Event:
     context = Context(
         user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36',
         ip='13.57.97.131',
-        ad=Ad(callback='' ), # ttclid
+        ad=Ad(callback='E.C.P.152545565'),  # ttclid
         page=Page(
             url='https://www.example.com',
             referrer='https://www.google.com'
@@ -76,11 +76,11 @@ def event() -> Event:
         user=User(
             external_id='123456',
             email='test@test.com',
-            phone_number='+5541998862934',
+            phone_number='+55 (41)9.9886-2934',
             ttp='94e2a4j9-h3j5-k2h5-98cc-c84a745mk098',
         ))
     properties = Properties(
-        currency='BRL', # ISO 4217
+        currency='BRL',  # ISO 4217
         value=1.00,
         content_type=ContentType.PRODUCT,
         description='test description',
@@ -91,15 +91,18 @@ def event() -> Event:
     )
     auth = TikTokAuth()
 
-    event = Event(
+    yield Event(
         pixel_code=auth.TIKTOK_PIXEL_ID,
         test_event_code=auth.TIKTOK_TEST_EVENT_CODE,
         event=SupportedEvents.VIEW_CONTENT,
         event_id='123456789',
-        timestamp="2023-06-09 13:37:26-03:00",
+        timestamp="2023-06-09 13:37:26-03:00",  # ISO 8601 format
         context=context,
         properties=properties
     )
-
-    yield event
+# @fixture
+# def simple_event():
+#     """Event in which most of the fields are not present."""
+#
+#     context = Context(
 

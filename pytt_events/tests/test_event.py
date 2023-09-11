@@ -1,8 +1,12 @@
 # Tests for the Event class
 from pytt_events.properties import Properties, ContentType, Content
 from pytt_events.context import Context, Ad, Page, User
+# from pytt_events.utils import ContextFormatError, PropertiesFormatError
 import pytest
 from pydantic import ValidationError
+
+mock_user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36'
+
 
 def test_ad_instance(ad):
     assert isinstance(ad, Ad)
@@ -14,15 +18,24 @@ def test_page_instance(page):
     assert page.url == 'https://www.example.com'
     assert page.referrer == 'https://www.google.com'
 
+
 def test_user_instance(user):
     assert isinstance(user, User)
     assert user.external_id == '123456'
     assert user.phone_number == '+5541999999999'
     assert user.ttp == '94e2a4j9-h3j5-k2h5-98cc-c84a745mk098'
 
+
+# def test_user_no_attributes_raises_excp():
+#     with pytest.raises(ContextFormatError):
+#         User()
+
+
+
+
 def test_context_instance(ad, page, user):
     context = Context(
-        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36',
+        user_agent=mock_user_agent,
         ip='13.57.97.131',
         ad=ad,  # ttclid
         page=page,
@@ -33,6 +46,7 @@ def test_context_instance(ad, page, user):
     assert context.page.url == 'https://www.example.com'
     assert context.ad.callback == ''
     assert context.page.referrer == 'https://www.google.com'
+
 
 def test_content_instance():
     content = Content(
@@ -49,8 +63,9 @@ def test_content_instance():
     assert content.content_category == 'test content category'
     assert content.content_name == 'test content name'
 
+
 def test_wrong_content_types_raises_excp():
-     with pytest.raises(ValidationError):
+    with pytest.raises(ValidationError):
         Content(
             content_id='12345',
             quantity='1',
@@ -75,11 +90,18 @@ def test_properties_instance(contents):
     assert properties.contents[0].price == 1
     assert properties.contents[1].price == 2
 
+
+# def test_no_properties_raises_excp():
+#
+#     with pytest.raises(PropertiesFormatError):
+#         Properties()
+
+
 def test_valid_event(auth, ad, page, user, contents):
     from pytt_events.event import Event, SupportedEvents
 
     context = Context(
-        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36',
+        user_agent=mock_user_agent,
         ip='13.57.97.131',
         ad=ad,  # ttclid
         page=page,
@@ -124,5 +146,3 @@ def test_valid_event(auth, ad, page, user, contents):
     assert event.context.user.phone_number == '+5541999999999'
     assert event.context.user.ttp == '94e2a4j9-h3j5-k2h5-98cc-c84a745mk098'
     assert event.context.user.external_id == '123456'
-
-
