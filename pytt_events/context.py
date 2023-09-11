@@ -1,4 +1,5 @@
 from typing import Optional
+from utils import ContextFormatError
 import phonenumbers
 import ipaddress
 from pydantic import (
@@ -9,13 +10,6 @@ from pydantic import (
     constr,
     EmailStr
 )
-
-
-class ContextFormatError(Exception):
-    def __init__(self, value, message) -> None:
-        self.value = value
-        self.message = message
-        super().__init__(value, message)
 
 
 class Ad(BaseModel):
