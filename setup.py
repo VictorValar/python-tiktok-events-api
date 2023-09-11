@@ -12,9 +12,16 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
 
 with open(requirements_filename) as f:
     # INSTALL_REQUIRES = [str(line[:-1]) for line in f]
-    INSTALL_REQUIRES = ['requests', 'pytest', 'pydantic', 'phonenumbers', 'email-validator', 'ipaddress', 'pydantic[dotenv]']
+    INSTALL_REQUIRES = [
+        'requests',
+        'pydantic==1.10.4',
+        'phonenumbers',
+        'email-validator',
+        'ipaddress',
+        'pydantic[dotenv]'
+    ]
 
-VERSION = '0.1.6'
+VERSION = '0.1.7'
 DESCRIPTION = 'Python wrapper for the TikTok Events API'
 LONG_DESCRIPTION = long_description
 PACKAGE_LICENSE = 'LICENSE.txt'
