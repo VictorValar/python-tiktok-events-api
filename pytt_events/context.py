@@ -1,5 +1,5 @@
 from typing import Optional
-from utils import ContextFormatError
+from . import utils
 import phonenumbers
 import ipaddress
 from pydantic import (
@@ -32,7 +32,7 @@ class Ad(BaseModel):
         A valid ttclid must start with E.C.P
         """
         if value:
-            ttclid_error = ContextFormatError(
+            ttclid_error = utils.ContextFormatError(
                 value=value,
                 message="Callback must be a valid ttclid please check "
                         "TikTok's documentation for more information on "
@@ -93,7 +93,7 @@ class User(BaseModel):
             number = phonenumbers.parse(field_value, None)
 
             if not phonenumbers.is_possible_number(number):
-                raise ContextFormatError(
+                raise utils.ContextFormatError(
                     value=field_value,
                     message='Must be a valid phone number: +{country code}{'
                             'local code}{phone number} / +001199999999'
@@ -110,7 +110,7 @@ class User(BaseModel):
     @classmethod
     def validate_user(cls, values):
         if not any(values.values()):
-            raise ContextFormatError(
+            raise utils.ContextFormatError(
                 value=values,
                 message='User must have at least one of the following: '
                         'external_id, email, phone_number, ttp'

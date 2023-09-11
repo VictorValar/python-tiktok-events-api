@@ -8,7 +8,7 @@ from pydantic import (
 )
 from typing import Optional
 from enum import Enum
-from utils import PropertiesFormatError
+from . import utils
 
 class ContentType(str, Enum):
     """ Content type enum."""
@@ -72,7 +72,7 @@ class Properties(BaseModel):
     @classmethod
     def validate_user(cls, values):
         if not any(values.values()):
-            raise PropertiesFormatError(
+            raise utils.PropertiesFormatError(
                 value=values,
                 message='Properties must have at least one attribute.'
             )
