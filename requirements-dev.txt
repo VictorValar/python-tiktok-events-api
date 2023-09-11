@@ -1,0 +1,6 @@
+requests
+pydantic==1.10.4
+phonenumbers
+email-validator
+ipaddress
+pydantic[dotenv]
