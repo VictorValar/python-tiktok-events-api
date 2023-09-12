@@ -21,7 +21,7 @@ with open(requirements_filename) as f:
         'pydantic[dotenv]'
     ]
 
-VERSION = '0.1.7'
+VERSION = '0.1.9'
 DESCRIPTION = 'Python wrapper for the TikTok Events API'
 LONG_DESCRIPTION = long_description
 PACKAGE_LICENSE = 'LICENSE.txt'
