@@ -20,9 +20,9 @@ class Ad(BaseModel):
         callback (str): TikTok Click ID (ttclid).
     """
 
-    callback: constr(
+    callback: Optional[constr(
         strip_whitespace=True, max_length=501
-    )
+    )]
 
     @validator('callback', pre=True)
     @classmethod
