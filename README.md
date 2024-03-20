@@ -1,6 +1,7 @@
 # Python TikTok Events API
 
-This library is an unoffical Python wrapper arround the TikTok Events API, allowing for easy interaction with the API:
+This library is an unofficial Python wrapper around the TikTok Events API, allowing for easy interaction with the API:
+
 - Pydantic types are used to validate the data to be sent to TikTok.
 - Customer identifiable information is hashed using SHA256 before being sent to the TikTok API.
 - Events can be sent one at a time or in batches.
